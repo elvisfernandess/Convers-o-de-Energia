@@ -31,5 +31,19 @@ public class TesteFinal {
 		teste.Z0_Z2();
 		teste.Zeq();
 		teste.I1();
+		teste.E0();
+		teste.I2();
+		
+		System.out.println("e)");
+		teste.Pin();
+		
+		System.out.println("f)");
+		teste.Pmec();
+		
+		System.out.println("g)");
+		teste.TorqueEixo();
+		
+		System.out.println("h)");
+		teste.Rendimento();
 	}
 }

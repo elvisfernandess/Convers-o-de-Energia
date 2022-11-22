@@ -34,6 +34,14 @@ public class Teste {
 	public double retangular_angulo_Z0_Z2;
 	public double polar_Zeq;
 	public double angulo_Zeq;
+	public double modulo_I1;
+	public double angulo_I1;
+	public double polar_modulo_Z0_Z2;
+	public double polar_angulo_Z0_Z2;
+	public double modulo_E0;
+	public double angulo_E0;
+	public double Pmec;
+	public double Pin;
 
 	public void escorregamento() {
 
@@ -174,10 +182,10 @@ public class Teste {
 		double angulo_denominador_Z0_Z2 = Math.atan(imag_denominador_ZO_Z2 / real_denominador_ZO_Z2) * (180 / 3.14);
 		System.out.println(angulo_denominador_Z0_Z2);
 
-		double polar_modulo_Z0_Z2 = real_numerador_Z0_Z2 / real_denominador_Z0_Z2;
+		polar_modulo_Z0_Z2 = real_numerador_Z0_Z2 / real_denominador_Z0_Z2;
 		System.out.println(polar_modulo_Z0_Z2);
 
-		double polar_angulo_Z0_Z2 = imag_numerador_Z0_Z2 - angulo_denominador_Z0_Z2;
+		polar_angulo_Z0_Z2 = imag_numerador_Z0_Z2 - angulo_denominador_Z0_Z2;
 		System.out.println(polar_angulo_Z0_Z2);
 
 		retangular_modulo_Z0_Z2 = polar_modulo_Z0_Z2 * Math.cos(polar_angulo_Z0_Z2 * Math.PI / 180);
@@ -203,11 +211,64 @@ public class Teste {
 	}
 
 	public void I1() {
-		double modulo_I1 = tensaoFonteV1 / polar_Zeq;
+		modulo_I1 = tensaoFonteV1 / polar_Zeq;
 		System.out.println(modulo_I1);
 
-		double angulo_I1 = anguloFonteV1 - angulo_Zeq;
+		angulo_I1 = anguloFonteV1 - angulo_Zeq;
 		System.out.println(angulo_I1);
+	}
+
+	public void E0() {
+		modulo_E0 = modulo_I1 * polar_modulo_Z0_Z2;
+		System.out.println(modulo_E0);
+
+		angulo_E0 = angulo_I1 + polar_angulo_Z0_Z2;
+		System.out.println(angulo_E0);
+
+	}
+
+	public void I2() {
+
+		double modulo_I2 = modulo_E0 / polar_real_Z2;
+		System.out.println(modulo_I2);
+
+		double angulo_I2 = angulo_E0 - imag_real_Z2;
+		System.out.println(angulo_I2);
+
+	}
+
+	public void Pin() {
+
+		double modulo_S1 = modulo_I1 * tensaoFonteV1;
+		System.out.println(modulo_S1);
+
+		double angulo_S1 = (-angulo_I1) + anguloFonteV1;
+		System.out.println(angulo_S1);
+
+		double P1 = modulo_S1 * Math.cos(angulo_S1 * Math.PI / 180);
+		System.out.println(P1);
+
+		double Q1 = modulo_S1 * Math.sin(angulo_S1 * Math.PI / 180);
+		System.out.println(Q1);
+
+		Pin = 3 * P1;
+		System.out.println(Pin);
+	}
+
+	public void Pmec() {
+		Pmec = potenciaMec * 745.7;
+		System.out.println(Pmec);
+
+	}
+
+	public void TorqueEixo() {
+		double TorqueEixo = (Pmec * frequenciaRede) / (2 * Math.PI * velocidadeMotor);
+		System.out.println(TorqueEixo);
+	}
+
+	public void Rendimento() {
+		double Rendimento = (Pmec / Pin) * 100;
+		System.out.println(Rendimento);
 	}
 
 }
