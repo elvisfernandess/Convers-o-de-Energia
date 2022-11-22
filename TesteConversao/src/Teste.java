@@ -5,7 +5,7 @@ public class Teste {
 
 	public int polos;
 	public double tensaoFonteV1;
-	public double angulooFonteV1;
+	public double anguloFonteV1;
 	public double frequenciaRede;
 	public double potenciaMec;
 	public double velocidadeMotor;
@@ -28,6 +28,12 @@ public class Teste {
 	public double retangular_imag_ZO;
 	public double real_Z2;
 	public double imag_Z2;
+	public double real_Z1;
+	public double imag_Z1;
+	public double retangular_modulo_Z0_Z2;
+	public double retangular_angulo_Z0_Z2;
+	public double polar_Zeq;
+	public double angulo_Zeq;
 
 	public void escorregamento() {
 
@@ -113,11 +119,11 @@ public class Teste {
 	public void Z1() {
 
 		System.out.print("Parte Real de Z1: ");
-		double real_Z1 = R1;
+		real_Z1 = R1;
 		System.out.println(real_Z1);
 
 		System.out.print("Parte Imaginária de Z1: ");
-		double imag_Z1 = jX1;
+		imag_Z1 = jX1;
 		System.out.println(imag_Z1);
 
 	}
@@ -143,16 +149,6 @@ public class Teste {
 	}
 
 	public void Z0_Z2() {
-		/*
-		 * System.out.println("Teste");
-		 * 
-		 * System.out.print("|ZO|: "); System.out.println(moduloZO);
-		 * System.out.print("Ângulo de ZO: "); System.out.println(anguloZO);
-		 * 
-		 * System.out.print("Parte Real Z2(polar): ");
-		 * System.out.println(polar_real_Z2);
-		 * System.out.print("Parte Imaginária Z2(polar): "); System.out.println();
-		 */
 
 		System.out.print("Parte Real do numerador ZO//Z2(polar): ");
 		double real_numerador_Z0_Z2 = moduloZO * polar_real_Z2;
@@ -174,9 +170,44 @@ public class Teste {
 		double real_denominador_Z0_Z2 = Math.sqrt(
 				real_denominador_ZO_Z2 * real_denominador_ZO_Z2 + imag_denominador_ZO_Z2 * imag_denominador_ZO_Z2);
 		System.out.println(real_denominador_Z0_Z2);
-		
-		
 
+		double angulo_denominador_Z0_Z2 = Math.atan(imag_denominador_ZO_Z2 / real_denominador_ZO_Z2) * (180 / 3.14);
+		System.out.println(angulo_denominador_Z0_Z2);
+
+		double polar_modulo_Z0_Z2 = real_numerador_Z0_Z2 / real_denominador_Z0_Z2;
+		System.out.println(polar_modulo_Z0_Z2);
+
+		double polar_angulo_Z0_Z2 = imag_numerador_Z0_Z2 - angulo_denominador_Z0_Z2;
+		System.out.println(polar_angulo_Z0_Z2);
+
+		retangular_modulo_Z0_Z2 = polar_modulo_Z0_Z2 * Math.cos(polar_angulo_Z0_Z2 * Math.PI / 180);
+		System.out.println(retangular_modulo_Z0_Z2);
+
+		retangular_angulo_Z0_Z2 = polar_modulo_Z0_Z2 * Math.sin(polar_angulo_Z0_Z2 * Math.PI / 180);
+		System.out.println(retangular_angulo_Z0_Z2);
+	}
+
+	public void Zeq() {
+		double real_Zeq = real_Z1 + retangular_modulo_Z0_Z2;
+		System.out.println(real_Zeq);
+
+		double imag_Zeq = imag_Z1 + retangular_angulo_Z0_Z2;
+		System.out.println(imag_Zeq);
+
+		polar_Zeq = Math.sqrt(real_Zeq * real_Zeq + imag_Zeq * imag_Zeq);
+		System.out.println(polar_Zeq);
+
+		angulo_Zeq = Math.atan(imag_Zeq / real_Zeq) * (180 / 3.14);
+		System.out.println(angulo_Zeq);
+
+	}
+
+	public void I1() {
+		double modulo_I1 = tensaoFonteV1 / polar_Zeq;
+		System.out.println(modulo_I1);
+
+		double angulo_I1 = anguloFonteV1 - angulo_Zeq;
+		System.out.println(angulo_I1);
 	}
 
 }

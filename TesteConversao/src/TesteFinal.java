@@ -5,7 +5,8 @@ public class TesteFinal {
 		Teste teste = new Teste(); // instancia da classe Teste
 
 		teste.polos = 4;
-		teste.angulooFonteV1 = 220.0;
+		teste.tensaoFonteV1 = 220.0;
+		teste.anguloFonteV1 = 0;
 		teste.frequenciaRede = 60.0;
 		teste.potenciaMec = 20.0;
 		teste.velocidadeMotor = 1750.0;
@@ -28,5 +29,7 @@ public class TesteFinal {
 		teste.Z1();
 		teste.Z2();
 		teste.Z0_Z2();
+		teste.Zeq();
+		teste.I1();
 	}
 }
