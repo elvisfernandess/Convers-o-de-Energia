@@ -20,6 +20,14 @@ public class Teste {
 	public double s; // escorregamento
 	public double fr; // escorregamento
 	public double _R2; // valor referente à carga
+	public double moduloZO;
+	public double anguloZO;
+	public double polar_real_Z2;
+	public double imag_real_Z2;
+	public double retangular_modulo_ZO;
+	public double retangular_imag_ZO;
+	public double real_Z2;
+	public double imag_Z2;
 
 	public void escorregamento() {
 
@@ -87,12 +95,18 @@ public class Teste {
 		System.out.println(imag_denominador_Z0);
 
 		System.out.print("|ZO|: ");
-		double moduloZO = real_denominador_Z0;
+		moduloZO = real_numerador_Z0 / real_denominador_Z0;
 		System.out.println(moduloZO);
 
 		System.out.print("Ângulo de ZO: ");
-		double anguloZO = angulo_jXm - imag_denominador_Z0;
+		anguloZO = angulo_jXm - imag_denominador_Z0;
 		System.out.println(anguloZO);
+
+		retangular_modulo_ZO = (moduloZO * Math.cos(anguloZO * Math.PI / 180));
+		System.out.println(retangular_modulo_ZO);
+
+		retangular_imag_ZO = (moduloZO * Math.sin(anguloZO * Math.PI / 180));
+		System.out.println(retangular_imag_ZO);
 
 	}
 
@@ -110,13 +124,58 @@ public class Teste {
 
 	public void Z2() {
 
-		System.out.print("Parte Real de Z2: ");
-		double real_Z2 = R2;
+		System.out.print("Parte Real de Z2(retangular): ");
+		real_Z2 = R2 + _R2;
 		System.out.println(real_Z2);
 
-		System.out.print("Parte Imaginária de Z2: ");
-		double imag_Z2 = jX2;
+		System.out.print("Parte Imaginária de Z2(retangular): ");
+		imag_Z2 = jX2;
 		System.out.println(imag_Z2);
+
+		System.out.print("Parte Real Z2(polar): ");
+		polar_real_Z2 = Math.sqrt(real_Z2 * real_Z2 + jX2 * jX2);
+		System.out.println(polar_real_Z2);
+
+		System.out.print("Parte Imaginária Z2(polar): ");
+		imag_real_Z2 = (jX2 / real_Z2) * (180 / 3.14);
+		System.out.println(imag_real_Z2);
+
+	}
+
+	public void Z0_Z2() {
+		/*
+		 * System.out.println("Teste");
+		 * 
+		 * System.out.print("|ZO|: "); System.out.println(moduloZO);
+		 * System.out.print("Ângulo de ZO: "); System.out.println(anguloZO);
+		 * 
+		 * System.out.print("Parte Real Z2(polar): ");
+		 * System.out.println(polar_real_Z2);
+		 * System.out.print("Parte Imaginária Z2(polar): "); System.out.println();
+		 */
+
+		System.out.print("Parte Real do numerador ZO//Z2(polar): ");
+		double real_numerador_Z0_Z2 = moduloZO * polar_real_Z2;
+		System.out.println(real_numerador_Z0_Z2);
+
+		System.out.print("Parte Imaginaria do numerador ZO//Z2(polar): ");
+		double imag_numerador_Z0_Z2 = anguloZO + imag_real_Z2;
+		System.out.println(imag_numerador_Z0_Z2);
+
+		System.out.print("Parte Real do denominador ZO//Z2(retangular): ");
+		double real_denominador_ZO_Z2 = retangular_modulo_ZO + real_Z2;
+		System.out.println(real_denominador_ZO_Z2);
+
+		System.out.print("Parte Imaginaria do denominador ZO//Z2(retangular): ");
+		double imag_denominador_ZO_Z2 = retangular_imag_ZO + imag_Z2;
+		System.out.println(imag_denominador_ZO_Z2);
+
+		System.out.print("Parte Real do denominador ZO//Z2(polar): ");
+		double real_denominador_Z0_Z2 = Math.sqrt(
+				real_denominador_ZO_Z2 * real_denominador_ZO_Z2 + imag_denominador_ZO_Z2 * imag_denominador_ZO_Z2);
+		System.out.println(real_denominador_Z0_Z2);
+		
+		
 
 	}
 

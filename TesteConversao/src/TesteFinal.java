@@ -27,5 +27,6 @@ public class TesteFinal {
 		teste.Z0();
 		teste.Z1();
 		teste.Z2();
+		teste.Z0_Z2();
 	}
 }
