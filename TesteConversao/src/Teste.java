@@ -42,6 +42,11 @@ public class Teste {
 	public double angulo_E0;
 	public double Pmec;
 	public double Pin;
+	public double modulo_I2;
+	public double Prot;
+	public double Peixo;
+	public double FP;
+	public double TorqueEixo;
 
 	public void escorregamento() {
 
@@ -105,7 +110,7 @@ public class Teste {
 		System.out.println(real_denominador_Z0);
 
 		System.out.print("Parte Imaginária do denominador ZO: ");
-		double imag_denominador_Z0 = (real_jXm / real_denominador_Z0) * (180 / 3.14);
+		double imag_denominador_Z0 = (real_jXm / real_denominador_Z0) * (180 / Math.PI);
 		System.out.println(imag_denominador_Z0);
 
 		System.out.print("|ZO|: ");
@@ -151,7 +156,7 @@ public class Teste {
 		System.out.println(polar_real_Z2);
 
 		System.out.print("Parte Imaginária Z2(polar): ");
-		imag_real_Z2 = (jX2 / real_Z2) * (180 / 3.14);
+		imag_real_Z2 = (jX2 / real_Z2) * (180 / Math.PI);
 		System.out.println(imag_real_Z2);
 
 	}
@@ -179,7 +184,7 @@ public class Teste {
 				real_denominador_ZO_Z2 * real_denominador_ZO_Z2 + imag_denominador_ZO_Z2 * imag_denominador_ZO_Z2);
 		System.out.println(real_denominador_Z0_Z2);
 
-		double angulo_denominador_Z0_Z2 = Math.atan(imag_denominador_ZO_Z2 / real_denominador_ZO_Z2) * (180 / 3.14);
+		double angulo_denominador_Z0_Z2 = Math.atan(imag_denominador_ZO_Z2 / real_denominador_ZO_Z2) * (180 / Math.PI);
 		System.out.println(angulo_denominador_Z0_Z2);
 
 		polar_modulo_Z0_Z2 = real_numerador_Z0_Z2 / real_denominador_Z0_Z2;
@@ -205,7 +210,7 @@ public class Teste {
 		polar_Zeq = Math.sqrt(real_Zeq * real_Zeq + imag_Zeq * imag_Zeq);
 		System.out.println(polar_Zeq);
 
-		angulo_Zeq = Math.atan(imag_Zeq / real_Zeq) * (180 / 3.14);
+		angulo_Zeq = Math.atan(imag_Zeq / real_Zeq) * (180 / Math.PI);
 		System.out.println(angulo_Zeq);
 
 	}
@@ -229,7 +234,7 @@ public class Teste {
 
 	public void I2() {
 
-		double modulo_I2 = modulo_E0 / polar_real_Z2;
+		modulo_I2 = modulo_E0 / polar_real_Z2;
 		System.out.println(modulo_I2);
 
 		double angulo_I2 = angulo_E0 - imag_real_Z2;
@@ -256,19 +261,113 @@ public class Teste {
 	}
 
 	public void Pmec() {
-		Pmec = potenciaMec * 745.7;
+		// Pmec = potenciaMec * 745.7;
+		System.out.print("Pmec: ");
+		Pmec = 3 * modulo_I2 * modulo_I2 * (R2) * ((1 - s) / s);
 		System.out.println(Pmec);
 
 	}
 
+	public void Peixo() {
+		System.out.print("Peixo: ");
+		Peixo = Pmec - Prot;
+		System.out.println(Peixo);
+	}
+
 	public void TorqueEixo() {
-		double TorqueEixo = (Pmec * frequenciaRede) / (2 * Math.PI * velocidadeMotor);
+		System.out.print("Torque do Eixo: ");
+		double TorqueEixo = (Peixo * frequenciaRede) / (2 * Math.PI * velocidadeMotor);
 		System.out.println(TorqueEixo);
 	}
 
 	public void Rendimento() {
+		System.out.print("Rendimento: ");
 		double Rendimento = (Pmec / Pin) * 100;
 		System.out.println(Rendimento);
+	}
+
+	public void FatorPotencia() {
+		System.out.print("Fator de Potência: ");
+		FP = Math.cos(-angulo_I1 * Math.PI / 180);
+		System.out.println(FP);
+
+	}
+
+	public void Z1_Z0() {
+		System.out.println("Sobrecarga: ");
+
+		System.out.print("Parte Real Z1(polar): ");
+		double modulo_Z1 = Math.sqrt(real_Z1 * real_Z1 + jX1 * jX1);
+		System.out.println(modulo_Z1);
+
+		System.out.print("Parte Imaginária Z1(polar): ");
+		double anguloZ1 = Math.atan(jX1 / real_Z1) * (180 / Math.PI);
+		System.out.println(anguloZ1);
+
+		System.out.print("Parte Real Z1_Z0(polar): ");
+		double moduloZ1_Z0 = modulo_Z1 * moduloZO;
+		System.out.println(moduloZ1_Z0);
+
+		System.out.print("Ângulo Z1_Z0(polar): ");
+		double anguloZ1_Z0 = anguloZ1 + anguloZO;
+		System.out.println(anguloZ1_Z0);
+
+		System.out.print("Parte real denominador Z1_Z0(retangular): ");
+		double real_Z1_Z0_den = Rf + R1;
+		System.out.println(real_Z1_Z0_den);
+
+		System.out.print("Parte imaginaria denominador Z1_Z0(retangular): ");
+		double imag_Z1_Z0_den = jX1 + jXm;
+		System.out.println(imag_Z1_Z0_den);
+
+		System.out.print("Parte Real denominador Z1_Z0(polar): ");
+		double modulo_Z1_Z0_real = Math.sqrt(real_Z1_Z0_den * real_Z1_Z0_den + imag_Z1_Z0_den * imag_Z1_Z0_den);
+		System.out.println(modulo_Z1_Z0_real);
+
+		System.out.print("Ângulo denominador Z1_Z0(polar): ");
+		double angulo_Z1_Z0_real = Math.atan(imag_Z1_Z0_den / real_Z1_Z0_den) * (180 / Math.PI);
+		System.out.println(angulo_Z1_Z0_real);
+
+		double modulo_Z1_Z0_final = moduloZ1_Z0 / modulo_Z1_Z0_real;
+		System.out.println(modulo_Z1_Z0_final);
+
+		double angulo_Z1_Z0_final = anguloZ1_Z0 - angulo_Z1_Z0_real;
+		System.out.println(angulo_Z1_Z0_final);
+
+		double retangular_modulo_Z1_Z0_final = modulo_Z1_Z0_final * Math.cos(angulo_Z1_Z0_final * Math.PI / 180);
+		System.out.println(retangular_modulo_Z1_Z0_final);
+
+		double retangular_angulo_Z1_Z0_final = modulo_Z1_Z0_final * Math.sin(angulo_Z1_Z0_final * Math.PI / 180);
+		System.out.println(retangular_angulo_Z1_Z0_final);
+
+		double zth_imag = retangular_angulo_Z1_Z0_final + jX2;
+		System.out.println(zth_imag);
+
+		double zth_real = retangular_modulo_Z1_Z0_final;
+		System.out.println(zth_real);
+
+		System.out.print("Modulo Zth: ");
+		double modulo_Zth = Math.sqrt((zth_real * zth_real) + zth_imag * zth_imag);
+		System.out.println(modulo_Zth);
+
+		System.out.print("Escorregamento: ");
+		double s_sobrecarga = (R2 / Math.abs(modulo_Zth));
+		System.out.println(s_sobrecarga);
+
+		System.out.print("nr: ");
+		double nr_sobrecarga = -((s_sobrecarga * 1800) - 1800);
+		System.out.println(nr_sobrecarga);
+
+		double TorqueCarga = (Pmec * 60) / (2 * Math.PI * nr_sobrecarga);
+		System.out.println(TorqueCarga);
+
+		if (TorqueCarga > TorqueEixo) {
+			System.out.println("Sim, está à sobrecarga (o torque da carga está acima do Torque Nominal).");
+
+		} else {
+			System.out.println("Não está à sobrecarga (o torque da carga está abaixo do Torque Nominal).");
+		}
+
 	}
 
 }

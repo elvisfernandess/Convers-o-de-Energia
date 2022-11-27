@@ -16,6 +16,9 @@ public class TesteFinal {
 		teste.jX2 = 0.6720;
 		teste.Rf = 500;
 		teste.jXm = 18.70;
+		teste.Prot = 0;
+		
+		System.out.println("Questão 1)");
 		System.out.print("a)");
 		teste.escorregamento();
 		System.out.print("b)");
@@ -39,11 +42,18 @@ public class TesteFinal {
 		
 		System.out.println("f)");
 		teste.Pmec();
+		teste.Peixo();
 		
 		System.out.println("g)");
 		teste.TorqueEixo();
 		
 		System.out.println("h)");
 		teste.Rendimento();
+		
+		System.out.println("i)");
+		teste.FatorPotencia();
+		
+		System.out.println("j)");
+		teste.Z1_Z0();
 	}
 }
